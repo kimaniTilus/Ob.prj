@@ -1,5 +1,4 @@
 # Student Enrollment Prediction Model
-
 ## Project Overview
 This project builds a machine learning model to predict which students are likely to enroll in a particular program and which ones may need additional support to graduate. It uses historical student enrollment data, academic records, and demographic information to make predictions. The model is based on a **Random Forest Classifier**.
 
