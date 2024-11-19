@@ -1,69 +1,85 @@
-# Ob.prj
-Assignment 
-#README 
-Obituary Management Platform
+# Student Enrollment Prediction Model
 
-Overview
+## Project Overview
+This project builds a machine learning model to predict which students are likely to enroll in a particular program and which ones may need additional support to graduate. It uses historical student enrollment data, academic records, and demographic information to make predictions. The model is based on a **Random Forest Classifier**.
 
-The Obituary Management Platform is a web application designed to facilitate the submission, management, and display of obituaries. This platform provides an easy-to-use interface for users to submit obituaries and view them. Additionally, it includes features for SEO and Social Media Optimization to enhance visibility and engagement.
+## Features
+- **Predict Enrollment**: Classifies whether a student is likely to enroll in a program or not.
+- **Predict Graduation Success**: Helps identify students who might need additional support.
+- **Model Evaluation**: The model is evaluated using accuracy, confusion matrix, ROC curve, and classification report.
+- **Feature Importance**: Analyzes which features are most influential in predicting student enrollment.
 
-Features
+## Dataset
+- **Student Academic Records**: GPA, test scores, attendance rate.
+- **Demographic Data**: Socioeconomic status, parental education level, participation in extracurriculars.
 
-Obituary Submission: Users can submit obituaries through a user-friendly HTML form.
-Database Management: Stores obituary data in a MySQL database.
-Data Retrieval and Display: Retrieves and displays obituaries in a paginated and styled HTML table.
-SEO Optimization: Dynamically generates meta tags, uses semantic HTML, and includes structured data for better search engine visibility.
-Social Media Integration: Implements Open Graph tags and social media sharing buttons for better social media sharing previews.
-Canonical Tags: Uses canonical tags to avoid duplicate content issues.
-XML Sitemap: Generates and submits an XML sitemap to search engines for better indexing.
-Technologies Used
-Framework: Django
-Database: MySQL
-Frontend: HTML, CSS, JavaScript
-SEO and Social Media: Meta tags, Open Graph tags, schema.org structured data
-Setup Instructions
-Environment Setup
-Set up a virtual environment:
+## Installation
 
-python -m venv venv
-source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-Install dependencies:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/student-enrollment-prediction.git
+   ```
 
-pip install django mysqlclient
-Configure the database: Update settings.py with your MySQL database settings:
+2. Install required libraries:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'obituary_platform',
-        'USER': 'your_db_user',
-        'PASSWORD': 'your_db_password',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
-Run migrations:
+   **Requirements:**
+   - pandas
+   - scikit-learn
+   - matplotlib
+   - seaborn
 
-python manage.py migrate
-Create a superuser:
+## Usage
 
-python manage.py createsuperuser
-Start the development server:
+1. **Data Preparation**:
+   - The dataset should be a CSV file with features like `high_school_gpa`, `test_score`, `attendance_rate`, etc.
 
-python manage.py runserver
-Usage
-Submit Obituaries: Navigate to http://127.0.0.1:8000/submit_obituary/ to submit obituaries.
-View Obituaries: Navigate to http://127.0.0.1:8000/view_obituaries/ to view obituaries.
-SEO and Social Media Features
-Dynamic Meta Tags: Meta tags for title, description, and keywords are dynamically generated based on the obituary content.
-Semantic HTML and Structured Data: Uses semantic HTML tags and schema.org structured data to improve search engine visibility.
-Open Graph Tags: Optimizes obituaries for social media sharing by adding Open Graph tags.
-Social Media Sharing Buttons: Includes buttons for sharing obituaries on Facebook and Twitter.
-Canonical Tags: Uses canonical tags to prevent duplicate content issues.
-XML Sitemap: Generates an XML sitemap to help search engines index the site better.
-Contributions
-Contributions are welcome! Please submit a pull request or open an issue to discuss any changes.
+2. **Train the Model**:
+   Run the following script to train the Random Forest model:
+   ```bash
+   python train_model.py
+   ```
 
-License
-This project is licensed under the MIT License. See the LICENSE file for details.
+3. **Evaluate the Model**:
+   After training, the model is evaluated with metrics such as accuracy, confusion matrix, and ROC curve.
+
+4. **Make Predictions**:
+   You can use the trained model to predict whether a new student will enroll:
+   ```python
+   # Example of making predictions
+   new_data = pd.DataFrame({
+       'high_school_gpa': [3.5],
+       'test_score': [1200],
+       'attendance_rate': [95],
+       'socioeconomic_status_Medium': [0],
+       'socioeconomic_status_High': [1],
+       'parent_education_College': [1],
+       'parent_education_Graduate': [0],
+       'extracurriculars_Yes': [1]
+   })
+   
+   # Load the trained model
+   import joblib
+   model = joblib.load('student_enrollment_model.pkl')
+   
+   # Make a prediction
+   prediction = model.predict(new_data)
+   print(f"Prediction (1 = Enrolled, 0 = Not Enrolled): {prediction[0]}")
+   ```
+
+## File Structure
+```
+/student-enrollment-prediction
+│
+├── data/                  # Folder for raw and processed data
+│   ├── students_data.csv  # Example dataset
+│
+├── train_model.py         # Script to train the model
+├── test_model.py          # Script to test the model and evaluate performance
+├── student_enrollment_model.pkl # Trained model (saved)
+├── requirements.txt       # Python dependencies
+├── README.md              # Project documentation
+```
 
